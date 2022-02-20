@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  db:
+    image: 'postgres'
+    container_name: db
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+    volumes:
+      - validation-db:/var/lib/postgresql/data
+
+  backend:
+    image: 'validation-backend-dev'
+    container_name: backend
+    build: .
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - '8080:8080'
+    depends_on:
+      - db
+
+volumes:
+  validation-db:
