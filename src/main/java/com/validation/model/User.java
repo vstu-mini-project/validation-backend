@@ -11,21 +11,21 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id")
+    @Column(name = "user_id", updatable = false, nullable = false)
     private Long id;
     private String username;
     private String email;
     private String password;
 
     @ManyToMany (cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "users_roles",
+    @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(
                     name = "user_id", referencedColumnName = "user_id"),
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "role_id"))
     private Set<UserRole> roles;
-    @OneToMany (cascade = CascadeType.ALL)
+
+    @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Document> documents;
 
     public User() { }
@@ -35,7 +35,7 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return this.getId() == user.getId()
+        return  Objects.equals(this.getId(), user.getId())
                 && this.getUsername().equals(user.getUsername())
                 && this.getEmail().equals(user.getEmail())
                 && this.password.equals(user.getPassword())
@@ -55,11 +55,23 @@ public class User {
         );
     }
 
-    public long getId() {
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + getId() +
+                ", username='" + getUsername() + '\'' +
+                ", email='" + getEmail() + '\'' +
+                ", password='" + getPassword() + '\'' +
+                ", roles=" + getRoles().toString() +
+                ", documents=" + getDocuments().toString() +
+                '}';
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -87,11 +99,11 @@ public class User {
         this.password = password;
     }
 
-    public List<UserRole> getRoles() {
+    public Set<UserRole> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<UserRole> roles) {
+    public void setRoles(Set<UserRole> roles) {
         this.roles = roles;
     }
 
