@@ -3,6 +3,7 @@ package com.validation.model;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "Users")
@@ -17,8 +18,13 @@ public class User {
     private String password;
 
     @ManyToMany (cascade = CascadeType.ALL)
-    @JoinTable(name = "Roles_To_Users")
-    private List<UserRole> roles;
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "user_id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "role_id"))
+    private Set<UserRole> roles;
     @OneToMany (cascade = CascadeType.ALL)
     private List<Document> documents;
 
