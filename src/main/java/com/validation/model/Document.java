@@ -1,2 +1,4 @@
-package com.validation.model;public class Document {
+package com.validation.model;
+
+public class Document {
 }
