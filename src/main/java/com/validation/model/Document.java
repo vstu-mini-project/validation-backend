@@ -13,8 +13,12 @@ public class Document {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "verification_id")
     private Verification verification;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Document() { }
 
@@ -57,5 +61,13 @@ public class Document {
 
     public void setVerification(Verification verification) {
         this.verification = verification;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

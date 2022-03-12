@@ -40,10 +40,10 @@ public class Passport {
     private String middleName;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
+    @JoinColumn(name = "document_id")
     private Document document;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "document_type_id")
     private DocumentType documentType;
 
     @Override
@@ -140,7 +140,7 @@ public class Passport {
         return departmentCode;
     }
 
-    public void setDepartmentСode(String departmentCode) {
+    public void setDepartmentCode(String departmentCode) {
         this.departmentCode = departmentCode;
     }
 

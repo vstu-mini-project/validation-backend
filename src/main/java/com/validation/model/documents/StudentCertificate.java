@@ -1,5 +1,7 @@
 package com.validation.model.documents;
 
+import com.validation.model.Document;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -26,8 +28,8 @@ public class StudentCertificate {
     private String middleName;
 
     @Column(nullable = false)
-    private String group;
-    @Column(nullable = false)
+    private String studyGroup;
+    @Column(name = "faculty", nullable = false)
     private String faculty;
     @Column(name = "study_form", nullable = false)
     private String studyForm;
@@ -36,6 +38,13 @@ public class StudentCertificate {
     private LocalDate studyFromDate;
     @Column(name = "study_to_date", nullable = false)
     private LocalDate studyToDate;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "document_id")
+    private Document document;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "document_type_id")
+    private DocumentType documentType;
 
     @Override
     public boolean equals(Object o) {
@@ -48,7 +57,7 @@ public class StudentCertificate {
                 && this.getFirstName().equals(that.getFirstName())
                 && this.getLastName().equals(that.getLastName())
                 && Objects.equals(getMiddleName(), that.getMiddleName())
-                && this.getGroup().equals(that.getGroup())
+                && this.getStudyGroup().equals(that.getStudyGroup())
                 && this.getFaculty().equals(that.getFaculty())
                 && this.getStudyForm().equals(that.getStudyForm())
                 && this.getStudyFromDate().equals(that.getStudyFromDate())
@@ -64,7 +73,7 @@ public class StudentCertificate {
                 getFirstName(),
                 getLastName(),
                 getMiddleName(),
-                getGroup(),
+                getStudyGroup(),
                 getFaculty(),
                 getStudyForm(),
                 getStudyFromDate(),
@@ -75,17 +84,17 @@ public class StudentCertificate {
     @Override
     public String toString() {
         return "StudentCertificate{" +
-                "id=" + id +
-                ", issueDate=" + issueDate +
-                ", number='" + number + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", middleName='" + middleName + '\'' +
-                ", group='" + group + '\'' +
-                ", faculty='" + faculty + '\'' +
-                ", studyForm='" + studyForm + '\'' +
-                ", studyFromDate=" + studyFromDate +
-                ", studyToDate=" + studyToDate +
+                "id=" + getId() +
+                ", issueDate=" + getIssueDate() +
+                ", number='" + getNumber() + '\'' +
+                ", firstName='" + getFirstName() + '\'' +
+                ", lastName='" + getLastName() + '\'' +
+                ", middleName='" + getMiddleName() + '\'' +
+                ", group='" + getStudyGroup() + '\'' +
+                ", faculty='" + getFaculty() + '\'' +
+                ", studyForm='" + getStudyForm() + '\'' +
+                ", studyFromDate=" + getStudyFromDate() +
+                ", studyToDate=" + getStudyToDate() +
                 '}';
     }
 
@@ -137,12 +146,12 @@ public class StudentCertificate {
         this.middleName = middleName;
     }
 
-    public String getGroup() {
-        return group;
+    public String getStudyGroup() {
+        return studyGroup;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setStudyGroup(String studyGroup) {
+        this.studyGroup = studyGroup;
     }
 
     public String getFaculty() {
@@ -175,5 +184,21 @@ public class StudentCertificate {
 
     public void setStudyToDate(LocalDate studyToDate) {
         this.studyToDate = studyToDate;
+    }
+
+    public Document getDocument() {
+        return document;
+    }
+
+    public void setDocument(Document document) {
+        this.document = document;
+    }
+
+    public DocumentType getDocumentType() {
+        return documentType;
+    }
+
+    public void setDocumentType(DocumentType documentType) {
+        this.documentType = documentType;
     }
 }
