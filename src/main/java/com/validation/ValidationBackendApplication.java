@@ -1,5 +1,6 @@
 package com.validation;
 
+import org.springdoc.core.GroupedOpenApi;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -22,4 +23,7 @@ public class ValidationBackendApplication {
             }
         };
     }
+
+
+
 }
