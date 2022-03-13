@@ -1,5 +1,6 @@
 package com.validation.controller;
 
+import com.validation.dto.UserDto;
 import com.validation.model.User;
 import com.validation.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,11 +14,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(path = "api/v1/users", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(path = "/api/v1/users/", produces = APPLICATION_JSON_VALUE)
 public class UserController {
 
     private final UserService userService;
@@ -27,26 +29,39 @@ public class UserController {
         this.userService = userService;
     }
 
-    @Operation(summary = "Returns a list of users")
+    @Operation(summary = "Возвращает список всех пользователей")
     @ApiResponse(
             responseCode = "200",
-            description = "User was updated",
-            content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = User.class))})
+            description = "Список был получен",
+            content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserDto.class))})
     @GetMapping
-    public ResponseEntity<List<User>> getUsers() {
-        return ResponseEntity.ok(userService.findAll());
+    public ResponseEntity<List<UserDto>> getUsers() {
+        return ResponseEntity.ok(userService.findAll().stream().map(UserDto::fromUser).collect(Collectors.toList()));
     }
 
-    @Operation(summary = "Save new user to DB")
+    @Operation(summary = "Возвращает пользователя с указанным id")
+    @ApiResponse(
+            responseCode = "200",
+            content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = UserDto.class))})
+    @GetMapping(value = "{id}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable(name = "id") Long id) {
+        User user = userService.findById(id);
+        if (user == null)
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        UserDto result = UserDto.fromUser(user);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @Operation(summary = "Регистрирует пользователя")
     @ApiResponse(
             responseCode = "201",
-            description = "User is created",
+            description = "Пользователь зарегистрирован",
             content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = User.class))})
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
-        if(user.getUsername().isEmpty() || user.getUsername().isBlank()) {
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+    public ResponseEntity<User> saveUser(@RequestBody User user) {
+        User createdUser = userService.register(user);
+        if (createdUser == null)
+            return ResponseEntity.unprocessableEntity().build();
+        return ResponseEntity.ok(createdUser);
     }
 }

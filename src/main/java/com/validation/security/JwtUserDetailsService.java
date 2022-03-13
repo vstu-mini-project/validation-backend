@@ -23,7 +23,7 @@ public class JwtUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.findByUsername(username);
         if(user == null)
-            throw new UsernameNotFoundException("Пользователь с логином: " + username + " не нвйден");
+            throw new UsernameNotFoundException("Пользователь с логином: " + username + " не найден");
         return JwtUserFactory.create(user);
     }
 }
