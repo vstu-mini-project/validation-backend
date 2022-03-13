@@ -15,6 +15,13 @@ public class Role {
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private List<User> users;
 
+    public Role() { }
+
+    public Role(String name, Long id) {
+     this.name = name;
+     this.id = id;
+    }
+
     @Override
     public String toString() {
         return "UserRole{" +

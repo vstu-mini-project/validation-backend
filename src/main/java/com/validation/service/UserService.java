@@ -21,6 +21,11 @@ public class UserService {
         return this.userRepository.findAll();
     }
 
+    public User findByUsername(String username) {
+        // TODO Валидация логина (только латинские буквы и цифры)
+        return this.userRepository.findByUsername(username);
+    }
+
     public void addUser(User user) {
         this.userRepository.save(user);
     }
