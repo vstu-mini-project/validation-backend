@@ -7,10 +7,11 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -29,14 +30,23 @@ public class UserController {
     @Operation(summary = "Returns a list of users")
     @ApiResponse(
             responseCode = "200",
-            description = "Order was updated",
+            description = "User was updated",
             content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = User.class))})
     @GetMapping
-    public List<User> getUsers() {
-        return userService.findAll();
+    public ResponseEntity<List<User>> getUsers() {
+        return ResponseEntity.ok(userService.findAll());
     }
 
-    public Response addUser(User user) {
-
+    @Operation(summary = "Save new user to DB")
+    @ApiResponse(
+            responseCode = "201",
+            description = "User is created",
+            content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = User.class))})
+    @PostMapping(consumes = APPLICATION_JSON_VALUE)
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+        if(user.getUsername().isEmpty() || user.getUsername().isBlank()) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 }
