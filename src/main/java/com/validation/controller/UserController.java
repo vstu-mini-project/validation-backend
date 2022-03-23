@@ -59,9 +59,23 @@ public class UserController {
             content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = User.class))})
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<User> saveUser(@RequestBody User user) {
+        if (user.getUsername().isEmpty() || user.getUsername().isBlank()
+                || user.getPassword().isEmpty() || user.getPassword().isBlank())
+            return ResponseEntity.badRequest().build();
+        if (userService.findByUsername(user.getUsername()) != null)
+            return ResponseEntity.badRequest().build();
         User createdUser = userService.register(user);
         if (createdUser == null)
             return ResponseEntity.unprocessableEntity().build();
         return ResponseEntity.ok(createdUser);
     }
+
+    @DeleteMapping(value = "{id}")
+    public ResponseEntity<User> removeUser(@PathVariable(name = "id") Long id) {
+        userService.delete(id);
+        if (userService.findById(id) == null)
+            return ResponseEntity.ok().build();
+        return ResponseEntity.badRequest().build();
+    }
+
 }
