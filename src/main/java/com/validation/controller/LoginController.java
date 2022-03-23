@@ -26,6 +26,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping(path = "/api/v1/auth/")
+@CrossOrigin
 public class LoginController {
 
     private final UserService userService;
@@ -43,7 +44,7 @@ public class LoginController {
     @ApiResponse(
             responseCode = "200",
             description = "Авторизация прошла успешно",
-            content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = User.class))})
+            content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = AuthenticationRequestDto.class))})
     @PostMapping("login")
     public ResponseEntity<Map<Object, Object>> login(@RequestBody AuthenticationRequestDto requestDto) {
         try {

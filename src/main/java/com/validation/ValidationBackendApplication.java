@@ -18,7 +18,7 @@ public class ValidationBackendApplication {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("api/**").allowedOrigins("http://frontend:80");
+                registry.addMapping("api/v1/**").allowedOrigins("http://frontend:80");
             }
         };
     }
