@@ -1,6 +1,7 @@
 package com.validation.loader;
 
 import com.validation.model.Role;
+import com.validation.model.User;
 import com.validation.repository.RoleRepository;
 import com.validation.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,13 @@ public class DatabaseLoader implements CommandLineRunner {
         roleRepository.save(new Role("ROLE_USER", 1L));
         roleRepository.save(new Role("ROLE_ADMIN", 2L));
 
+        if(userRepository.findByUsername("admin") == null) {
+            User user = new User();
+            user.setUsername("admin");
+            user.setEmail("admin@mail.ru");
+            user.setPassword("$2a$10$t4l8ea.54Mw6ZQpS1fHtMOrsaHBq/toNvNBQdEYLyOx37RNN6JgT2");
+            userRepository.save(user);
+        }
 
     }
 }

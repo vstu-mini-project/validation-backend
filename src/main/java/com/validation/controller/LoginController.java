@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -52,7 +53,8 @@ public class LoginController {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, requestDto.getPassword()));
             User user = userService.findByUsername(username);
             if (user == null) {
-                throw new UsernameNotFoundException("Пользователь с таким логином не найден");
+//                throw new UsernameNotFoundException("Пользователь с таким логином не найден");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
             String token = jwtTokenProvider.createToken(username, (List<Role>) user.getRoles());
             Map<Object, Object> response = new HashMap<>();
@@ -60,7 +62,8 @@ public class LoginController {
             response.put("token", token);
             return ResponseEntity.ok(response);
         } catch (AuthenticationException e) {
-            throw new BadCredentialsException("Неверный логин или пароль");
+//            throw new BadCredentialsException("Неверный логин или пароль");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 }
