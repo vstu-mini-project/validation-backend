@@ -1,5 +1,7 @@
 package com.validation.service;
 
+import com.validation.dto.RegistrationRequestDto;
+import com.validation.exception.NotFoundException;
 import com.validation.model.Document;
 import com.validation.model.Role;
 import com.validation.model.User;
@@ -11,10 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-
-// TODO Change to interface and add implementation
-// TODO Add delete method
+// todo: Add changePassword etc.
 @Service
 public class UserService {
 
@@ -29,32 +30,35 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public List<User> findAll() {
-        return this.userRepository.findAll();
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
-    public User findByUsername(String username) {
-        // TODO Валидация логина (только латинские буквы и цифры)
-        // TODO Обработка NULL
-        return userRepository.findByUsername(username);
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new NotFoundException("Пользователь с таким именем не найден"));
     }
 
-    public User findById(Long id) {
-        // TODO Обработка NULL
-        User result = userRepository.findById(id).orElse(null);
-        return result;
+    public User getUser(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        return user.orElseThrow(
+                        () -> new NotFoundException("Пользователь с id:" + id + " не существует.")
+        );
     }
 
-    public User register(User user) {
+    public void register(RegistrationRequestDto requestDto) {
         Role roleUser = roleRepository.findByName("ROLE_USER");
         List<Role> userRoles = new ArrayList<>();
         userRoles.add(roleUser);
 
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User user = new User();
+        user.setUsername(requestDto.getUsername());
+        user.setEmail(requestDto.getEmail());
+        user.setPassword(passwordEncoder.encode(requestDto.getPassword()));
         user.setRoles(userRoles);
-        user.setDocuments(new ArrayList<Document>());
+        user.setDocuments(new ArrayList<>());
 
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
     public void delete(Long id) {
