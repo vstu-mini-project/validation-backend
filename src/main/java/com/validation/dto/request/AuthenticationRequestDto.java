@@ -1,4 +1,4 @@
-package com.validation.dto;
+package com.validation.dto.request;
 
 public class AuthenticationRequestDto {
     private String username;

@@ -1,7 +1,7 @@
 package com.validation.service;
 
+import com.validation.exception.NotFoundException;
 import com.validation.model.Document;
-import com.validation.model.User;
 import com.validation.repository.DocumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,13 +18,12 @@ public class DocumentService {
         this.documentRepository = documentRepository;
     }
 
-    public Document add(User user, Document document) {
-        document.setUser(user);
-        List<Document> documents = user.getDocuments();
-        documents.add(document);
-        user.setDocuments(documents);
-        return documentRepository.save(document);
+    public List<Document> getAllDocuments() {
+        return documentRepository.findAll();
     }
 
-
+    public Document getById(Long id) {
+        return documentRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Документ с id:" + id + " не существует."));
+    }
 }

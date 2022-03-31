@@ -13,7 +13,7 @@ public class Passport {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "passport_id")
-    private String id;
+    private Long id;
 
     @Column(length = 4 , nullable = false)
     private String serial;
@@ -27,9 +27,9 @@ public class Passport {
 
     @Column(length = 10, nullable = false)
     private String gender;
-    @Column(nullable = false)
+    @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
-    @Column(nullable = false)
+    @Column(name = "birth_place", nullable = false)
     private String birthPlace;
 
     @Column(name = "first_name", nullable = false)
@@ -45,6 +45,38 @@ public class Passport {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "document_type_id")
     private DocumentType documentType;
+
+    public Passport() {
+    }
+
+    public Passport(
+            Long id,
+            String serial,
+            String number,
+            LocalDate issueDate,
+            String departmentCode,
+            String gender,
+            LocalDate birthDate,
+            String birthPlace,
+            String firstName,
+            String lastName,
+            String middleName,
+            Document document,
+            DocumentType documentType) {
+        this.id = id;
+        this.serial = serial;
+        this.number = number;
+        this.issueDate = issueDate;
+        this.departmentCode = departmentCode;
+        this.gender = gender;
+        this.birthDate = birthDate;
+        this.birthPlace = birthPlace;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.document = document;
+        this.documentType = documentType;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -104,11 +136,11 @@ public class Passport {
                 '}';
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

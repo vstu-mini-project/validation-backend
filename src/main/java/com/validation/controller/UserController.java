@@ -1,8 +1,7 @@
 package com.validation.controller;
 
-import com.validation.dto.RegistrationRequestDto;
+import com.validation.dto.request.RegistrationRequestDto;
 import com.validation.dto.UserDto;
-import com.validation.model.User;
 import com.validation.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

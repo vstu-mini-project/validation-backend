@@ -1,8 +1,7 @@
 package com.validation.service;
 
-import com.validation.dto.RegistrationRequestDto;
+import com.validation.dto.request.RegistrationRequestDto;
 import com.validation.exception.NotFoundException;
-import com.validation.model.Document;
 import com.validation.model.Role;
 import com.validation.model.User;
 import com.validation.repository.RoleRepository;

@@ -1,6 +1,4 @@
-package com.validation.dto;
-
-import com.validation.model.User;
+package com.validation.dto.request;
 
 public class RegistrationRequestDto {
     private String username;

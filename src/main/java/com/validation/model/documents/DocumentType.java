@@ -1,10 +1,13 @@
 package com.validation.model.documents;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "document_types")
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer","handler"})
 public class DocumentType {
 
     @Id

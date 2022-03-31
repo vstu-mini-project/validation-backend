@@ -1,10 +1,13 @@
 package com.validation.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "verifications")
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer","handler"})
 public class Verification {
 
     @Id

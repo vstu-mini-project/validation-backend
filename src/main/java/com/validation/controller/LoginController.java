@@ -1,7 +1,6 @@
 package com.validation.controller;
 
-import com.validation.dto.AuthenticationRequestDto;
-import com.validation.model.Role;
+import com.validation.dto.request.AuthenticationRequestDto;
 import com.validation.model.User;
 import com.validation.security.jwt.JwtTokenProvider;
 import com.validation.service.UserService;
@@ -19,13 +18,12 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(path = "/api/v1/auth/")
+@RequestMapping(path = "/api/v1/auth/", produces = APPLICATION_JSON_VALUE)
 @CrossOrigin
 public class LoginController {
 
