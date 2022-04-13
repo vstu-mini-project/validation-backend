@@ -1,4 +1,4 @@
-package com.validation.controller.configuration;
+package com.validation.configuration;
 
 import com.validation.security.jwt.JwtConfigurer;
 import com.validation.security.jwt.JwtTokenProvider;

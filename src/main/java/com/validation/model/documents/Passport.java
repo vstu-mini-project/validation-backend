@@ -1,7 +1,9 @@
 package com.validation.model.documents;
 
 import com.validation.model.Document;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,6 +13,8 @@ import java.util.Objects;
 @Builder
 @Entity
 @Table(name = "passports")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Passport {
 
     @Id
@@ -49,37 +53,6 @@ public class Passport {
     @JoinColumn(name = "document_type_id")
     private DocumentType documentType;
 
-    public Passport() {
-    }
-
-    public Passport(
-            Long id,
-            String serial,
-            String number,
-            LocalDate issueDate,
-            String departmentCode,
-            String gender,
-            LocalDate birthDate,
-            String birthPlace,
-            String firstName,
-            String lastName,
-            String middleName,
-            Document document,
-            DocumentType documentType) {
-        this.id = id;
-        this.serial = serial;
-        this.number = number;
-        this.issueDate = issueDate;
-        this.departmentCode = departmentCode;
-        this.gender = gender;
-        this.birthDate = birthDate;
-        this.birthPlace = birthPlace;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.middleName = middleName;
-        this.document = document;
-        this.documentType = documentType;
-    }
 
     @Override
     public boolean equals(Object o) {

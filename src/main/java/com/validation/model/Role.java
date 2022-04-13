@@ -1,14 +1,17 @@
 package com.validation.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-@Builder
 @Entity
 @Table (name = "roles")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Role {
 
     @Id
@@ -19,8 +22,6 @@ public class Role {
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private List<User> users;
-
-    public Role() { }
 
     public Role(String name, Long id) {
      this.name = name;

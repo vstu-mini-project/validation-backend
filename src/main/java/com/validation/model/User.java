@@ -1,6 +1,8 @@
 package com.validation.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,6 +12,8 @@ import java.util.Objects;
 @Builder
 @Entity
 @Table(name = "users")
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -30,8 +34,6 @@ public class User {
 
     @OneToMany (mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private final List<Document> documents = new ArrayList<>();
-
-    public User() { }
 
     @Override
     public boolean equals(Object o) {

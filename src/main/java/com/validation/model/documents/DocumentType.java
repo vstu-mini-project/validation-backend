@@ -1,7 +1,8 @@
 package com.validation.model.documents;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -10,6 +11,8 @@ import java.util.Objects;
 @Builder
 @Entity
 @Table(name = "document_types")
+@NoArgsConstructor
+@AllArgsConstructor
 public class DocumentType {
 
     @Id
@@ -44,8 +47,6 @@ public class DocumentType {
                 ", typeName='" + typeName + '\'' +
                 '}';
     }
-
-    public DocumentType() { }
 
     public Long getId() {
         return id;

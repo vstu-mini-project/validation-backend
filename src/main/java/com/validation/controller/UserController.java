@@ -1,6 +1,6 @@
 package com.validation.controller;
 
-import com.validation.dto.request.RegistrationRequestDto;
+import com.validation.dto.documents.request.RegistrationRequestDto;
 import com.validation.dto.UserDto;
 import com.validation.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;

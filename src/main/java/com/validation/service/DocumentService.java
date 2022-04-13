@@ -3,20 +3,19 @@ package com.validation.service;
 import com.validation.exception.NotFoundException;
 import com.validation.model.Document;
 import com.validation.repository.DocumentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class DocumentService {
 
-    private final DocumentRepository documentRepository;
-
-    @Autowired
-    public DocumentService(DocumentRepository documentRepository) {
-        this.documentRepository = documentRepository;
-    }
+    DocumentRepository documentRepository;
 
     public List<Document> findAllDocuments() {
         return documentRepository.findAll();

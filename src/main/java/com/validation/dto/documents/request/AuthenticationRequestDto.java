@@ -1,4 +1,4 @@
-package com.validation.dto.request;
+package com.validation.dto.documents.request;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -8,8 +8,7 @@ import lombok.experimental.FieldDefaults;
 @Data
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class RegistrationRequestDto {
+public class AuthenticationRequestDto {
     String username;
-    String email;
     String password;
 }

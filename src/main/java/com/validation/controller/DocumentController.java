@@ -61,7 +61,7 @@ public class DocumentController {
     @PostMapping(value = "passports")
     public ResponseEntity<PassportDto> addPassport(@RequestBody PassportDto passportRequest) {
         return ResponseEntity.ok(
-                PassportDto.fromPassport(passportService.savePassport(passportRequest))
+                PassportDto.fromPassport(passportService.registerPassport(passportRequest))
         );
     }
 

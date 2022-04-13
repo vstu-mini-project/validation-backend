@@ -1,4 +1,4 @@
-package com.validation.controller.configuration;
+package com.validation.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

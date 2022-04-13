@@ -22,8 +22,9 @@ public class VerificationController {
     public VerificationController(VerificationService verificationService) {
         this.verificationService = verificationService;
     }
+
     @GetMapping
-    public ResponseEntity<List<Verification>>getVerifications() {
+    public ResponseEntity<List<Verification>> getVerifications() {
         return ResponseEntity.ok(verificationService.findAllVerifications());
     }
 
@@ -52,9 +53,8 @@ public class VerificationController {
     }
 
     @DeleteMapping(value = "{id}")
-    public ResponseEntity<Long> delete (@PathVariable(name = "id") Long id) {
-        if (verificationService.deleteVerification(id))
-            return ResponseEntity.ok(id);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    public ResponseEntity<Long> delete(@PathVariable(name = "id") Long id) {
+        verificationService.deleteVerification(id);
+        return ResponseEntity.ok(id);
     }
 }

@@ -1,6 +1,6 @@
 package com.validation.loader;
 
-import com.validation.controller.configuration.PasswordEncoderConfiguration;
+import com.validation.configuration.PasswordEncoderConfiguration;
 import com.validation.model.Document;
 import com.validation.model.Role;
 import com.validation.model.User;
@@ -18,9 +18,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import javax.print.Doc;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component

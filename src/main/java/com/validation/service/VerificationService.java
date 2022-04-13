@@ -3,20 +3,27 @@ package com.validation.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.validation.exception.ArgumentWasNullException;
+import com.validation.exception.NotFoundException;
 import com.validation.model.Verification;
 import com.validation.repository.VerificationRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
 @Service
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class VerificationService {
 
-    private final VerificationRepository verificationRepository;
+    VerificationRepository verificationRepository;
 
-    @Autowired
-    public VerificationService(VerificationRepository verificationRepository) {
-        this.verificationRepository = verificationRepository;
+    public Verification findById(Long id) {
+        return verificationRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Верификация с id:" + id + " не существует.")
+        );
     }
 
     public List<Verification> findAllVerifications() {
@@ -27,26 +34,23 @@ public class VerificationService {
         return verificationRepository.save(verification);
     }
 
-    public boolean deleteVerification(Long id) {
+    public void deleteVerification(Long id) {
         verificationRepository.deleteById(id);
-        Optional<Verification> result = verificationRepository.findById(id);
-        return result.isEmpty();
     }
 
     public Verification updateVerification(Long id, Verification verification) {
+
         Optional<Verification> toUpdate = verificationRepository.findById(id);
-        if (toUpdate.isPresent()) {
-            toUpdate.get().setExpirationDate(verification.getExpirationDate());
-            toUpdate.get().setUrl(verification.getUrl());
-            return verificationRepository.save(verification);
-        }
-        else {
-            return null;
-        }
-    }
 
-    public Verification findById(Long id) {
-        return null;
-    }
+        if (toUpdate.isEmpty())
+            throw new NotFoundException("Верификация с id:" + id + " не существует.");
 
+        if (Optional.ofNullable(verification).isEmpty())
+            throw new ArgumentWasNullException("Данные для обновления были пусты.");
+
+        toUpdate.get().setExpirationDate(verification.getExpirationDate());
+        toUpdate.get().setUrl(verification.getUrl());
+
+        return verificationRepository.save(verification);
+    }
 }

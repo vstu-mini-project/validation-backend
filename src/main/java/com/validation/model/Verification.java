@@ -1,7 +1,9 @@
 package com.validation.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,6 +12,8 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "verifications")
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
+@NoArgsConstructor
+@AllArgsConstructor
 public class Verification {
 
     @Id
@@ -21,9 +25,6 @@ public class Verification {
     private LocalDate expirationDate;
 
     private String url;
-
-    public Verification() {
-    }
 
     @Override
     public String toString() {

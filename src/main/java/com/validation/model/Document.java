@@ -1,6 +1,8 @@
 package com.validation.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -8,6 +10,8 @@ import java.util.Objects;
 @Builder
 @Entity
 @Table(name = "documents")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Document {
 
     @Id
@@ -22,8 +26,6 @@ public class Document {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    public Document() { }
 
     @Override
     public boolean equals(Object o) {
