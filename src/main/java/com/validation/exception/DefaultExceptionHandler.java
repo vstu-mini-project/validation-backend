@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.util.Arrays;
+
 @ControllerAdvice
 public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -16,11 +18,15 @@ public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Object> exception(RuntimeException e, WebRequest request) throws Exception {
         log.error(String.format(
-                "/**********************************************************/\n" +
-                        "*   В процессе выполнения программы возникло исключение   *\n" +
-                        "* %55s *\n" +
-                        "/*********************************************************/", e.getMessage() )
+                        "\n/********************************************************************************************************************/\n" +
+                                "* %-114s *\n" +
+                                "* %-114s *\n" +
+                                "/********************************************************************************************************************/",
+                        "В процессе выполнения программы возникло исключение",
+                        e.getMessage()
+                )
         );
+        e.printStackTrace();
         return handleException(e, request);
     }
 }
