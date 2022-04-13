@@ -1,51 +1,35 @@
 package com.validation.dto;
 
 import com.validation.model.Verification;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 
+@Data
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class VerificationDto {
-    private Long id;
-    private LocalDate expirationDate;
-    private String url;
+
+    Long id;
+    LocalDate expirationDate;
+    String url;
 
     public static Verification toVerification(VerificationDto verificationDto) {
-        var verification = new Verification();
-        verification.setId(verificationDto.getId());
-        verification.setExpirationDate(verificationDto.getExpirationDate());
-        verification.setUrl(verificationDto.getUrl());
-        return verification;
+        return Verification.builder()
+                .id(verificationDto.getId())
+                .expirationDate(verificationDto.getExpirationDate())
+                .url(verificationDto.getUrl())
+                .build();
     }
 
     public static VerificationDto fromVerification(Verification verification) {
-        var verificationDto = new VerificationDto();
-        verificationDto.setId(verification.getId());
-        verificationDto.setExpirationDate(verification.getExpirationDate());
-        verificationDto.setUrl(verification.getUrl());
-        return verificationDto;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public LocalDate getExpirationDate() {
-        return expirationDate;
-    }
-
-    public void setExpirationDate(LocalDate expirationDate) {
-        this.expirationDate = expirationDate;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
+        return VerificationDto.builder()
+                .id(verification.getId())
+                .expirationDate(verification.getExpirationDate())
+                .url(verification.getUrl())
+                .build();
     }
 }

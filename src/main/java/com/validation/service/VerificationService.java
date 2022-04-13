@@ -19,21 +19,21 @@ public class VerificationService {
         this.verificationRepository = verificationRepository;
     }
 
-    public List<Verification> findAll() {
+    public List<Verification> findAllVerifications() {
         return this.verificationRepository.findAll();
     }
 
-    public Verification add(Verification verification) {
+    public Verification registerVerification(Verification verification) {
         return verificationRepository.save(verification);
     }
 
-    public boolean delete(Long id) {
+    public boolean deleteVerification(Long id) {
         verificationRepository.deleteById(id);
         Optional<Verification> result = verificationRepository.findById(id);
         return result.isEmpty();
     }
 
-    public Verification update(Long id, Verification verification) {
+    public Verification updateVerification(Long id, Verification verification) {
         Optional<Verification> toUpdate = verificationRepository.findById(id);
         if (toUpdate.isPresent()) {
             toUpdate.get().setExpirationDate(verification.getExpirationDate());

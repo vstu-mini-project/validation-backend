@@ -18,11 +18,11 @@ public class DocumentService {
         this.documentRepository = documentRepository;
     }
 
-    public List<Document> getAllDocuments() {
+    public List<Document> findAllDocuments() {
         return documentRepository.findAll();
     }
 
-    public Document getById(Long id) {
+    public Document findById(Long id) {
         return documentRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Документ с id:" + id + " не существует."));
     }

@@ -36,9 +36,9 @@ public class UserController {
                             array = @ArraySchema(schema = @Schema(implementation = UserDto.class)))
             })
     @GetMapping
-    public ResponseEntity<List<UserDto>> getUsers() {
+    public ResponseEntity<List<UserDto>> getAllUsers() {
         return ResponseEntity.ok(
-                userService.getAllUsers().stream()
+                userService.findAllUsers().stream()
                 .map(UserDto::fromUser)
                         .collect(Collectors.toList())
         );
@@ -58,7 +58,7 @@ public class UserController {
     @GetMapping(value = "{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok(
-                UserDto.fromUser(userService.getUser(id))
+                UserDto.fromUser(userService.findUserById(id))
         );
     }
 
@@ -70,8 +70,8 @@ public class UserController {
     })
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<UserDto> registerUser(@RequestBody RegistrationRequestDto request) {
-        userService.register(request);
-        return ResponseEntity.ok(UserDto.fromUser(userService.getUserByUsername(request.getUsername())));
+        userService.registerUser(request);
+        return ResponseEntity.ok(UserDto.fromUser(userService.findUserByUsername(request.getUsername())));
     }
 
     @Operation(summary = "Удаляет пользователя с указанным id")
@@ -82,7 +82,7 @@ public class UserController {
     )
     @DeleteMapping(value = "{id}")
     public void removeUser(@PathVariable(name = "id") Long id) {
-        userService.delete(id);
+        userService.deleteUser(id);
     }
 
 }

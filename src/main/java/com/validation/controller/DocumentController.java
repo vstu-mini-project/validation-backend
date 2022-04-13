@@ -29,7 +29,7 @@ public class DocumentController {
     @GetMapping
     public ResponseEntity<List<DocumentDto>> getDocument(DocumentType documentType) {
         return ResponseEntity.ok(
-                documentService.getAllDocuments().stream()
+                documentService.findAllDocuments().stream()
                     .map(DocumentDto::fromDocument)
                     .collect(Collectors.toList())
         );
@@ -38,7 +38,7 @@ public class DocumentController {
     @GetMapping(value = "{id}")
     public ResponseEntity<DocumentDto> getDocument(@PathVariable(name = "id") Long id) {
         return ResponseEntity.ok(
-                DocumentDto.fromDocument(documentService.getById(id))
+                DocumentDto.fromDocument(documentService.findById(id))
         );
     }
 

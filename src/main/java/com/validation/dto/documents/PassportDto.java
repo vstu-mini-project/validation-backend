@@ -1,146 +1,62 @@
 package com.validation.dto.documents;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.validation.model.documents.Passport;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@Data
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class PassportDto {
-    private Long id;
 
-    private String serial;
-    private String number;
+    Long id;
+    String serial;
+    String number;
 
-    private LocalDate issueDate;
-    private String departmentCode;
+    LocalDate issueDate;
+    String departmentCode;
 
-    private String gender;
-    private LocalDate birthDate;
-    private String birthPlace;
+    String gender;
+    LocalDate birthDate;
+    String birthPlace;
 
-    private String firstName;
-    private String lastName;
-    private String middleName;
-
+    String firstName;
+    String lastName;
+    String middleName;
 
     public static Passport toPassport(PassportDto dto) {
-        Passport passport = new Passport();
-        passport.setId(dto.getId());
-        passport.setSerial(dto.getSerial());
-        passport.setNumber(dto.getNumber());
-        passport.setIssueDate(dto.getIssueDate());
-        passport.setDepartmentCode(dto.getDepartmentCode());
-        passport.setGender(dto.getGender());
-        passport.setBirthDate(dto.getBirthDate());
-        passport.setBirthPlace(dto.getBirthPlace());
-        passport.setFirstName(dto.getFirstName());
-        passport.setLastName(dto.getLastName());
-        passport.setMiddleName(dto.getMiddleName());
-        return passport;
+        return Passport.builder()
+                .id(dto.getId())
+                .serial(dto.getSerial())
+                .number(dto.getNumber())
+                .issueDate(dto.getIssueDate())
+                .departmentCode(dto.getDepartmentCode())
+                .gender(dto.getGender())
+                .birthDate(dto.getBirthDate())
+                .birthPlace(dto.getBirthPlace())
+                .firstName(dto.getFirstName())
+                .lastName(dto.getLastName())
+                .middleName(dto.getMiddleName())
+                .build();
     }
 
     public static PassportDto fromPassport(Passport passport) {
-        PassportDto dto = new PassportDto();
-        dto.setId(passport.getId());
-        dto.setSerial(passport.getSerial());
-        dto.setNumber(passport.getNumber());
-        dto.setIssueDate(passport.getIssueDate());
-        dto.setDepartmentCode(passport.getDepartmentCode());
-        dto.setGender(passport.getGender());
-        dto.setBirthDate(passport.getBirthDate());
-        dto.setBirthPlace(passport.getBirthPlace());
-        dto.setFirstName(passport.getFirstName());
-        dto.setLastName(passport.getLastName());
-        dto.setMiddleName(passport.getMiddleName());
-        return dto;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getSerial() {
-        return serial;
-    }
-
-    public void setSerial(String serial) {
-        this.serial = serial;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public LocalDate getIssueDate() {
-        return issueDate;
-    }
-
-    public void setIssueDate(LocalDate issueDate) {
-        this.issueDate = issueDate;
-    }
-
-    public String getDepartmentCode() {
-        return departmentCode;
-    }
-
-    public void setDepartmentCode(String departmentCode) {
-        this.departmentCode = departmentCode;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public String getBirthPlace() {
-        return birthPlace;
-    }
-
-    public void setBirthPlace(String birthPlace) {
-        this.birthPlace = birthPlace;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
+        return PassportDto.builder()
+                .id(passport.getId())
+                .serial(passport.getSerial())
+                .number(passport.getNumber())
+                .issueDate(passport.getIssueDate())
+                .departmentCode(passport.getDepartmentCode())
+                .gender(passport.getGender())
+                .birthDate(passport.getBirthDate())
+                .birthPlace(passport.getBirthPlace())
+                .firstName(passport.getFirstName())
+                .lastName(passport.getLastName())
+                .middleName(passport.getMiddleName())
+                .build();
     }
 }

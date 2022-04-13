@@ -1,11 +1,14 @@
 package com.validation.model.documents;
 
 import com.validation.model.Document;
+import lombok.Builder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
+
+@Builder
 @Entity
 @Table(name = "student_certificates")
 public class StudentCertificate {
@@ -45,6 +48,10 @@ public class StudentCertificate {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "document_type_id")
     private DocumentType documentType;
+
+    public StudentCertificate() {
+
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -57,7 +57,7 @@ public class LoginController {
         try {
             String username = requestDto.getUsername();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, requestDto.getPassword()));
-            User user = userService.getUserByUsername(username);
+            User user = userService.findUserByUsername(username);
             String token = jwtTokenProvider.createToken(username, user.getRoles());
             Map<Object, Object> response = new HashMap<>();
             response.put("username", username);

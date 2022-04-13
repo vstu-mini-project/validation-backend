@@ -1,8 +1,11 @@
 package com.validation.model;
 
+import lombok.Builder;
+
 import javax.persistence.*;
 import java.util.Objects;
 
+@Builder
 @Entity
 @Table(name = "documents")
 public class Document {

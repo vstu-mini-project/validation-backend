@@ -1,6 +1,7 @@
 package com.validation.service.documents;
 
 import com.validation.dto.documents.PassportDto;
+import com.validation.exception.AlreadyExistException;
 import com.validation.exception.NotFoundException;
 import com.validation.model.Document;
 import com.validation.model.documents.DocumentType;
@@ -40,7 +41,8 @@ public class PassportService {
 
     public Passport savePassport(PassportDto request) {
         if (passportRepository.findBySerialAndNumber(request.getSerial(), request.getNumber()).isPresent())
-            return null;
+            throw new AlreadyExistException("Данные не корректны.");
+
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username = userDetails.getUsername();
 

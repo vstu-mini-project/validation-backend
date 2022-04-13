@@ -1,13 +1,15 @@
 package com.validation.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Builder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
+@Builder
 @Entity
 @Table(name = "verifications")
-@JsonIgnoreProperties(value = {"hibernateLazyInitializer","handler"})
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
 public class Verification {
 
     @Id
@@ -20,7 +22,8 @@ public class Verification {
 
     private String url;
 
-    public Verification() { }
+    public Verification() {
+    }
 
     @Override
     public String toString() {

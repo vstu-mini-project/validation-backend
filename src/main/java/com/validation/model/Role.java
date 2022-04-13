@@ -1,11 +1,16 @@
 package com.validation.model;
 
+import lombok.Builder;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
+@Builder
 @Entity
 @Table (name = "roles")
 public class Role {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "role_id", updatable = false, nullable = false)
@@ -20,6 +25,19 @@ public class Role {
     public Role(String name, Long id) {
      this.name = name;
      this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role = (Role) o;
+        return getId().equals(role.getId()) && getName().equals(role.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName());
     }
 
     @Override

@@ -1,10 +1,13 @@
 package com.validation.model;
 
+import lombok.Builder;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
+@Builder
 @Entity
 @Table(name = "users")
 public class User {
@@ -23,10 +26,10 @@ public class User {
                     name = "user_id", referencedColumnName = "user_id"),
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "role_id"))
-    private List<Role> roles;
+    private final List<Role> roles = new ArrayList<>();
 
     @OneToMany (mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Document> documents;
+    private final List<Document> documents = new ArrayList<>();
 
     public User() { }
 
@@ -104,7 +107,7 @@ public class User {
     }
 
     public void setRoles(List<Role> roles) {
-        this.roles = roles;
+        this.roles.addAll(roles);
     }
 
     public List<Document> getDocuments() {
@@ -112,6 +115,6 @@ public class User {
     }
 
     public void setDocuments(List<Document> documents) {
-        this.documents = documents;
+        this.documents.addAll(documents);
     }
 }

@@ -24,7 +24,7 @@ public class VerificationController {
     }
     @GetMapping
     public ResponseEntity<List<Verification>>getVerifications() {
-        return ResponseEntity.ok(verificationService.findAll());
+        return ResponseEntity.ok(verificationService.findAllVerifications());
     }
 
     @PostMapping(value = "{id}")
@@ -37,7 +37,7 @@ public class VerificationController {
 
     @PostMapping
     public ResponseEntity<Verification> saveVerification(@RequestBody Verification verification) {
-        Verification createdVerification = verificationService.add(verification);
+        Verification createdVerification = verificationService.registerVerification(verification);
         if (createdVerification == null)
             return ResponseEntity.unprocessableEntity().build();
         return ResponseEntity.ok(createdVerification);
@@ -45,7 +45,7 @@ public class VerificationController {
 
     @PutMapping(value = "{id}")
     public ResponseEntity<Verification> update(@PathVariable(name = "id") Long id, Verification verification) {
-        if (verificationService.update(id, verification) != null)
+        if (verificationService.updateVerification(id, verification) != null)
             return ResponseEntity.ok(verificationService.findById(id));
         else
             return ResponseEntity.badRequest().build();
@@ -53,7 +53,7 @@ public class VerificationController {
 
     @DeleteMapping(value = "{id}")
     public ResponseEntity<Long> delete (@PathVariable(name = "id") Long id) {
-        if (verificationService.delete(id))
+        if (verificationService.deleteVerification(id))
             return ResponseEntity.ok(id);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }

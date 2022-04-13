@@ -1,11 +1,14 @@
 package com.validation.model.documents;
 
 import com.validation.model.Document;
+import lombok.Builder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
+
+@Builder
 @Entity
 @Table(name = "passports")
 public class Passport {

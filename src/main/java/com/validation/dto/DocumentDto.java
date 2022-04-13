@@ -1,50 +1,33 @@
 package com.validation.dto;
 
 import com.validation.model.Document;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
+@Data
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class DocumentDto {
 
-    private Long id;
-    private VerificationDto verification;
-    private UserDto user;
+    Long id;
+    VerificationDto verification;
+    UserDto user;
 
     public static DocumentDto fromDocument(Document document) {
-        DocumentDto dto = new DocumentDto();
-        dto.setId(document.getId());
-        dto.setUser(UserDto.fromUser(document.getUser()));
-        dto.setVerification(VerificationDto.fromVerification(document.getVerification()));
-        return dto;
+        return DocumentDto.builder()
+                .id(document.getId())
+                .verification(VerificationDto.fromVerification(document.getVerification()))
+                .user(UserDto.fromUser(document.getUser()))
+                .build();
     }
 
     public static Document toDocument(DocumentDto dto) {
-        Document document = new Document();
-        document.setId(dto.getId());
-        document.setUser(dto.getUser().toUser());
-        document.setVerification(VerificationDto.toVerification(dto.getVerification()));
-        return document;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public VerificationDto getVerification() {
-        return verification;
-    }
-
-    public void setVerification(VerificationDto verification) {
-        this.verification = verification;
-    }
-
-    public UserDto getUser() {
-        return user;
-    }
-
-    public void setUser(UserDto user) {
-        this.user = user;
+        return Document.builder()
+                .id(dto.getId())
+                .verification(VerificationDto.toVerification(dto.getVerification()))
+                .user(UserDto.toUser(dto.getUser()))
+                .build();
     }
 }
