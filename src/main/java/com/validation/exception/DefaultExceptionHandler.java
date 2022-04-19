@@ -8,15 +8,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.util.Arrays;
-
 @ControllerAdvice
 public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
 
-    private static Logger log = LoggerFactory.getLogger(RuntimeException.class);
+    private static Logger log = LoggerFactory.getLogger(Exception.class);
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<Object> exception(RuntimeException e, WebRequest request) throws Exception {
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> exception(Exception e, WebRequest request) throws Exception {
         log.error(String.format(
                         "\n/********************************************************************************************************************/\n" +
                                 "* %-114s *\n" +
