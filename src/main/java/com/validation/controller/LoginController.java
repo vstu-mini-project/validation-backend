@@ -1,6 +1,6 @@
 package com.validation.controller;
 
-import com.validation.dto.documents.request.AuthenticationRequestDto;
+import com.validation.dto.request.AuthenticationRequestDto;
 import com.validation.model.User;
 import com.validation.security.jwt.JwtTokenProvider;
 import com.validation.service.UserService;
