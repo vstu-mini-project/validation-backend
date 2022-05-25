@@ -16,6 +16,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping(value = "api/v1/documents", produces = APPLICATION_JSON_VALUE)
+@CrossOrigin
 public class DocumentController {
     private final DocumentService documentService;
     private final PassportService passportService;

@@ -12,14 +12,4 @@ public class ValidationBackendApplication {
     public static void main(String[] args) {
         SpringApplication.run(ValidationBackendApplication.class, args);
     }
-
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("api/v1/**").allowedOrigins("http://frontend:80");
-            }
-        };
-    }
 }

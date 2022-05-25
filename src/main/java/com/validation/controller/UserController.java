@@ -20,6 +20,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping(path = "/api/v1/users/", produces = APPLICATION_JSON_VALUE)
+@CrossOrigin
 public class UserController {
 
     private final UserService userService;
