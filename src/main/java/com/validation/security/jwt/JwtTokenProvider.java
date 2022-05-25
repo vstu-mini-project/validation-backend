@@ -1,5 +1,6 @@
 package com.validation.security.jwt;
 
+import com.validation.exception.ArgumentWasNullException;
 import com.validation.model.Role;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,7 +76,7 @@ public class JwtTokenProvider {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
             return !claims.getBody().getExpiration().before(new Date());
         } catch (JwtException | IllegalArgumentException e) {
-            throw new JwtAuthenticationException("JWT token is expired or invalid");
+            throw new ArgumentWasNullException("JWT token is expired or invalid");
         }
     }
 

@@ -1,5 +1,6 @@
 package com.validation.exception;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,11 @@ public class DefaultExceptionHandler extends ResponseEntityExceptionHandler {
                 )
         );
         e.printStackTrace();
+        return handleException(e, request);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<Object> handleAccessDeniedException(ExpiredJwtException e, WebRequest request) throws Exception {
         return handleException(e, request);
     }
 }

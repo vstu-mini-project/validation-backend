@@ -58,9 +58,9 @@ public class DatabaseLoader implements CommandLineRunner {
                             .gender("Мужской")
                             .birthDate(LocalDate.now().minusYears(21L))
                             .birthPlace("Воронеж")
-                            .firstName("Никита")
-                            .lastName("Скулыбердин")
-                            .middleName("Юрьевич")
+                            .firstName("Имя")
+                            .lastName("Фамилия")
+                            .middleName("Отчество")
                             .document(document)
                             .documentType(
                                     docTypes.stream()
